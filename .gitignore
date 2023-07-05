@@ -1,0 +1,12 @@
+__pycache__
+/venv
+.idea/
+*.db
+#.env
+__pycache__/
+.pytest_cache/
+app/.pytest_cache/
+/log/booxpand_log.log
+*.log
+*.DS_Store
+deployment.yaml
