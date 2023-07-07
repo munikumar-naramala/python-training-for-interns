@@ -4,7 +4,12 @@ def dict_formatting():
         for key, value in dict1.items():
             print(f'{key:10} ==> {value:20}')
         print("_________")
-
+        for key in dict1.keys():
+            print(f'{key:19} team')
+        print("---------")
+        for value in dict1.values():
+            print(f'{value:20} driver')
+        print("---------")
     print_dict1()
 
     def print_dict2():
@@ -13,6 +18,7 @@ def dict_formatting():
         print("_________")
 
     print_dict2()
+
 
 
 if __name__ == '__main__':

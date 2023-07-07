@@ -10,8 +10,9 @@ def exception_handling():
             result = numerator / denominator
 
             print(result)
-        except:
+        except ZeroDivisionError:
             print("Error: Denominator cannot be 0.")
+
     try_except()
     print("------------")
 
@@ -23,6 +24,7 @@ def exception_handling():
             print("Denominator cannot be zero")
         except IndexError:
             print("List index out of bound")
+
     more_than_one_expect()
     print("_--------------")
 
@@ -34,11 +36,12 @@ def exception_handling():
             result = numerator / denominator
 
             print(result)
-        except:
+        except ZeroDivisionError:
             print("Error: Denominator cannot be 0.")
 
         finally:
             print("This is finally block.")
+
     try_finally()
 
 

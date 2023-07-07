@@ -9,16 +9,19 @@ def variables():
     print(MY_VAR)
 
     myCamelCase = "Sanjana"
+    print(myCamelCase)
 
     MyPascalCase = "Sanjana"
+    print(MyPascalCase)
 
     my_snake_case = "Sanjana"
-
+    print(my_snake_case)
     # case sensitive
 
     def variable_assignment():
         x = y = z = 'Sanjana', 'Bhavana', 'Meghana'
-        print(x,y,z)
+        print(x, y, z)
+
     variable_assignment()
 
 
