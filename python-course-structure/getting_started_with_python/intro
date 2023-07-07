@@ -6,3 +6,21 @@ Guido Van Rossum 1991
  - code readability
  - few lines of code
 
+Installation:
+- Use homebrew for mac os
+- official python website for windows
+
+Virtual Environment:
+- used for dependency management and project isolation.
+- Use venv command to create a virtual environment by specifying the path.
+- ve is created to have different python package versions for different projects.
+- pip will install python packages inside a virtual environment.
+python -m venv /path/
+- creates a target directory with config file in it
+- links to python executables already installed in the system.
+- site-packages where all the libraries are installed.
+- bin ensures that the project uses the site packages installed in the venv.
+
+Development environment:
+- Select any editor such as visual studio code or pycharm pr jupyter notebook to start developing projects.
+
