@@ -8,7 +8,7 @@ class Car:
 
 
 if __name__ == '__main__':
-    p1 = Car("Pagani Zonda R ", 800)
+    p1 = Car("Pagans Zonda R ", 800)
     p1.func1()
     del p1.horses
     p1.func1()

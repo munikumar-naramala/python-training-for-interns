@@ -13,5 +13,5 @@ def tuple_plus_tuple(tup2):
 
 
 if __name__ == '__main__':
-    add_element('urban motard')
+    add_element('urban motar')
     tuple_plus_tuple(('city monster',))

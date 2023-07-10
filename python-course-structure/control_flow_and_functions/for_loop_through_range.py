@@ -1,6 +1,6 @@
 def range_loop():
     for i in range(10):
-        print("Super Maxx")
+        print("Super Max")
 
 
 if __name__ == '__main__':

@@ -1,15 +1,15 @@
-def isPalindrome(x):
+def is_palindrome(x):
     return x == x[::-1]
 
 
-def minPalPartion(string, i, j):
-    if i >= j or isPalindrome(string[i:j + 1]):
+def min_partition(string, i, j):
+    if i >= j or is_palindrome(string[i:j + 1]):
         return 0
     ans = float('inf')
     for k in range(i, j):
         count = (
-                1 + minPalPartion(string, i, k)
-                + minPalPartion(string, k + 1, j)
+                1 + min_partition(string, i, k)
+                + min_partition(string, k + 1, j)
         )
         ans = min(ans, count)
     return ans
@@ -18,7 +18,7 @@ def minPalPartion(string, i, j):
 def main():
     string = "ababbbabbababa"
     print(
-        minPalPartion(string, 0, len(string) - 1),
+        min_partition(string, 0, len(string) - 1),
     )
 
 

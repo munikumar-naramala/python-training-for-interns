@@ -1,11 +1,11 @@
 def slicing_strings():
-    str = 'ducati scrambler'
-    print(str[2:7])
+    str1 = 'ducats scrambler'
+    print(str1[2:7])
 
 
 def negative_indexing():
-    str = 'ducati scrambler'
-    print(str[-7:-2])
+    str1 = 'ducats scrambler'
+    print(str1[-7:-2])
 
 
 if __name__ == '__main__':

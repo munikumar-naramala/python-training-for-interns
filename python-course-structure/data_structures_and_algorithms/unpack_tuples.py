@@ -1,5 +1,5 @@
-def unpack(tupl):
-    (a1, a2, *a3) = tupl
+def unpack(tuple1):
+    (a1, a2, *a3) = tuple1
     print(a1)
     print(a2)
     print(a3)

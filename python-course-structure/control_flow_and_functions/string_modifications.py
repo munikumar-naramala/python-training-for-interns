@@ -9,8 +9,8 @@ def remove_whitespace():
 
 
 def replace_letter():
-    sttr1 = 'triumph speed twin'
-    print(sttr1.replace('t', 'T'))
+    str1 = 'triumph speed twin'
+    print(str1.replace('t', 'T'))
 
 
 def split_string(element):

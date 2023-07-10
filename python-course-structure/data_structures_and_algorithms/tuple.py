@@ -1,4 +1,4 @@
-def tuple():
+def tuple1():
     tup = ('himalayan', 'tiger', 'gt', 'himalayan', 'speed', 'scrambler')
     print(tup)
     print(type(tup))
@@ -9,5 +9,5 @@ def length_tuple(tup):
 
 
 if __name__ == '__main__':
-    tuple()
+    tuple1()
     length_tuple(('himalayan', 'tiger', 'gt', 'himalayan', 'speed', 'scrambler'))

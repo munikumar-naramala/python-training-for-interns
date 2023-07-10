@@ -31,6 +31,6 @@ def extend_list_another_type(extension):
 
 if __name__ == '__main__':
     append_list('triumph tiger 660')
-    normal_addition('Dominar 350')
-    extend_list(['royal enfield scram 411', 'ducati scrambler'])
-    extend_list_another_type(('royal enfield scram 411', 'ducati scrambler'))
+    normal_addition('Dominator 350')
+    extend_list(['royal enfield scram 411', 'ducat scrambler'])
+    extend_list_another_type(('royal enfield scram 411', 'ducat scrambler'))

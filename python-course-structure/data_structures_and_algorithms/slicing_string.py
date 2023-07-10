@@ -1,15 +1,15 @@
 def from_start(idx):
-    str1 = 'pagani zonda is the best car ever'
+    str1 = 'pagans zonda is the best car ever'
     print(str1[:idx])
 
 
 def to_end(idx):
-    str1 = 'pagani zonda is the best car ever'
+    str1 = 'pagans zonda is the best car ever'
     print(str1[idx:])
 
 
 def negative_slicing(idx1, idx2):
-    str1 = 'pagani zonda is the best car ever'
+    str1 = 'pagans zonda is the best car ever'
     print(str1[idx1:idx2])
 
 

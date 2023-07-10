@@ -6,7 +6,7 @@ def change_items(replace_element):
 
 
 def change_items_in_a_range(additional_element1, adele2, adele3):
-    cars = ['volkswagen', 'mahindra', 'skoda', 'suzuki']
+    cars = ['volkswagen', 'mahindra', 'soda', 'suzuki']
     cars[1:4] = additional_element1, adele2, adele3
     print(cars)
 

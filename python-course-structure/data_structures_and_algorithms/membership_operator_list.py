@@ -9,4 +9,4 @@ def check_if_element_in_list(bike):
 
 if __name__ == '__main__':
     check_if_element_in_list('triumph scrambler 400x ')
-    check_if_element_in_list('bajaj dominar')
+    check_if_element_in_list('bajaj dominator')

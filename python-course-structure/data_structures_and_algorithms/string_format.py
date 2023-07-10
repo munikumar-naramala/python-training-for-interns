@@ -1,10 +1,10 @@
 def format1(top_speed):
-    str1 = 'ferrari 812 superfast 789hp, top_speed: {}, 3.4 sec'
+    str1 = 'ferrari 812 superbest 789hp, top_speed: {}, 3.4 sec'
     print(str1.format(top_speed))
 
 
 def format2(horsepower, top_speed, time):
-    str1 = 'ferrari 812 superfast {} hp, top_speed: {}, {} sec'
+    str1 = 'ferrari 812 superbest {} hp, top_speed: {}, {} sec'
     print(str1.format(horsepower, top_speed, time))
 
 
