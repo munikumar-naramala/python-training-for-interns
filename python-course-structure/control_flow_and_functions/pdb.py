@@ -4,17 +4,17 @@ def pdb():
     result = num1 / num2
     print(result)
 
-    def pdb_from_middle():
-        s = '0'
-        n = int(s)
-        breakpoint()
 
-        print(1000 / n)
+def pdb_from_middle():
+    s = '0'
+    n = int(s)
+    breakpoint()
 
-    pdb_from_middle()
+    print(1000 / n)
 
 
 if __name__ == '__main__':
     pdb()
+    pdb_from_middle()
 
 # run in terminal python -m pdb pdb.py
