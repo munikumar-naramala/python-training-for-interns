@@ -18,12 +18,12 @@ def variables():
     print(my_snake_case)
     # case sensitive
 
-    def variable_assignment():
-        x = y = z = 'Sanjana', 'Bhavana', 'Meghana'
-        print(x, y, z)
 
-    variable_assignment()
+def variable_assignment():
+    x = y = z = 'Sanjana', 'Bhavana', 'Meghana'
+    print(x, y, z)
 
 
 if __name__ == '__main__':
     variables()
+    variable_assignment()

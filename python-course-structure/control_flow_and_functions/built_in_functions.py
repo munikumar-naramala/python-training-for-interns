@@ -1,5 +1,7 @@
+import math
+
+
 def built_in_functions():
-    import math
     square_root = math.sqrt(25)
     print(square_root)
 

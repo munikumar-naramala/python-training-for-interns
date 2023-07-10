@@ -1,6 +1,6 @@
 def zip_use():
     f1_driver1 = ["Max", "Ham", "Alonso"]
-    f1_driver2 = ["Checo", 'George', 'Stroll']
+    f1_driver2 = ["Perez", 'George', 'Stroll']
     for driver1, driver2 in zip(f1_driver1, f1_driver2):
         print(driver1, driver2)
 

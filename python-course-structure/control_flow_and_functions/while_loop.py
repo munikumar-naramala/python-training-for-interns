@@ -2,7 +2,7 @@ def while_loop():
     i = 0
     j = 10
     while i < j:
-        print("Super Maxxx")
+        print("Super Max")
         i += 1
 
 
