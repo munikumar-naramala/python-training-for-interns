@@ -8,7 +8,10 @@ class Car:
 
 
 if __name__ == '__main__':
-    p1 = Car("Pagans Zonda R ", 800)
-    p1.func1()
-    p1.horses = 789
-    p1.func1()
+    try:
+        p1 = Car("Pagans Zonda R ", 800)
+        p1.func1()
+        p1.horses = 789
+        p1.func1()
+    except BaseException as error:
+        print('An exception occurred: {}'.format(error))

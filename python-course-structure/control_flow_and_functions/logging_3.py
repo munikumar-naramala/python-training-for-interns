@@ -1,5 +1,7 @@
+import logging
+
+
 def logging_module_debugging():
-    import logging
     logging.basicConfig(filename='test.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s',
                         level=logging.DEBUG)
     logging.warning('This will get logged to a file')

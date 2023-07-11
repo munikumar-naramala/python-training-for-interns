@@ -21,11 +21,16 @@ class V12Car(Vehicle):
         print("V12!")
 
 
-car1 = V6Car("Porsche 911 Carreras S", 450)
-car2 = V8Car("Ford Mustang GT500", 760)
-car3 = V12Car("Aston Martin Vantage AMR", 503)
+if __name__ == '__main__':
+    try:
 
-for x in (car1, car2, car3):
-    print(x.brand)
-    print(x.horses)
-    x.move()
+        car1 = V6Car("Porsche 911 Carreras S", 450)
+        car2 = V8Car("Ford Mustang GT500", 760)
+        car3 = V12Car("Aston Martin Vantage AMR", 503)
+
+        for x in (car1, car2, car3):
+            print(x.brand)
+            print(x.horses)
+            x.move()
+    except BaseException as error:
+        print('An exception occurred: {}'.format(error))

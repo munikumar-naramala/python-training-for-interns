@@ -5,7 +5,6 @@ def print_and_check(s):
     print(count)
 
 
-
 if __name__ == '__main__':
     # print_and_check(5) typeerror
     print_and_check('Sanjana')
