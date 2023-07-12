@@ -1,5 +1,7 @@
 import pandas as pd
 
+print(pd.__version__)
+
 
 def pd_basics(filename):
     try:
