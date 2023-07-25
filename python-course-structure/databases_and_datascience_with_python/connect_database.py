@@ -35,4 +35,4 @@ def delete_data(conn, table_name, condition):
 
 
 if __name__ == '__main__':
-    connect_to_database('pg')
+    connect_to_database('my_test_db')

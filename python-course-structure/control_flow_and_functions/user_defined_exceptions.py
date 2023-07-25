@@ -1,7 +1,6 @@
 def user_defined_exception():
     min_age = 18
 
-    # noinspection PyBroadException
     try:
         age = int(input("Enter your age: "))
         if age < min_age:
