@@ -1,4 +1,5 @@
 from pydantic import BaseModel, EmailStr, Field
+from typing import List
 
 
 class UserRequest(BaseModel):
@@ -27,34 +28,43 @@ class RestaurantRequest(BaseModel):
 
 
 class OrderRequest(BaseModel):
-    order_id: int = Field(..., description='order number')
-    user_id: int = Field(..., description='ordered by')
-    delivery_status: str = Field(..., description='delivery status')
+    user_id: str = Field(..., description='user id')
+    restaurant_id: str = Field(..., description='restaurant number')
+    order_status: str = Field(..., description='delivery status')
+    amount: int = Field(..., description='amount')
     payment_status: str = Field(..., description='payment status')
 
 
 class MenuRequest(BaseModel):
-    menu_id: int = Field(..., description='menu number')
-    restaurant_id: int = Field(..., description='restaurant number')
-    item_name: str = Field(..., description='food name')
-    description: str = Field(..., description='description')
+    restaurant_id: str = Field(..., description='restaurant number')
+    food_name: str = Field(..., description='food name')
+    cuisine: str = Field(..., description='cuisine')
     amount: int = Field(..., description='order number')
 
 
+class OrderItemRequest(BaseModel):
+    order_id: str = Field(..., description='order id')
+    user_id: str = Field(..., description='user id')
+    restaurant_id: str = Field(..., description='restaurant id')
+    food_names: List[str] = Field(..., description='food name')
+    amounts: List[str] = Field(..., description='amount')
+    quantities: List[str] = Field(..., description='quantity')
+
+
+class DeliveryPartnerRequest(BaseModel):
+    contact_info: str = Field(..., description='mail id')
+    status: int = Field(..., description='status')
+
+
 class MenuUpdateRequest(BaseModel):
-    menu_id: int
-    item_name: str = Field(
+    food_name: str = Field(
         None, title="food Name", max_length=1000
     )
-    description: str = Field(
-        None, title="food description", max_length=1000
-    )
-    category: str = Field(
+    cuisine: str = Field(
         None, title="food category", max_length=1000
     )
     amount: int = Field(..., gt=0,
                         description="The price of the food must be greater than zero")
-    updated_by: int = Field(None, title="Updater Id")
 
 
 class RestaurantUpdateRequest(BaseModel):
@@ -89,3 +99,8 @@ class UserUpdateRequest(BaseModel):
         None, title="restaurant category", max_length=1000
     )
     updated_by: int = Field(None, title="Updater Id")
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str

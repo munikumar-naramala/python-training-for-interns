@@ -1,6 +1,7 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, TIMESTAMP, Enum, text
+from sqlalchemy import Column, ForeignKey, Integer, String, TIMESTAMP, Enum, text, ARRAY
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
+
 
 Base = declarative_base()
 
@@ -49,28 +50,16 @@ class Restaurant(Base):
 
 class Order(Base):
     __tablename__ = "orders"
-    order_id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey("user.user_id"))
-    restaurant_id = Column(Integer, ForeignKey("restaurant.restaurant_id"))
-    delivery_status = Column(
+    order_id = Column(String, primary_key=True)
+    user_id = Column(String, ForeignKey("user.user_id"))
+    restaurant_id = Column(String, ForeignKey("restaurant.restaurant_id"))
+    order_status = Column(
         Enum("Pending", "In Progress", "Delivered", "Canceled"),
-        nullable=False,
         default="Pending",
     )
-    delivery_address = Column(String(1024), nullable=True)
     amount = Column(Integer)
     payment_status = Column(
         Enum("Pending", "Paid", "Failed"), nullable=False, default="Pending"
-    )
-    created_by = Column(Integer, nullable=True)
-    created_at = Column(
-        TIMESTAMP, nullable=False, server_default=text("CURRENT_TIMESTAMP")
-    )
-    updated_by = Column(Integer, nullable=True)
-    updated_at = Column(
-        TIMESTAMP,
-        nullable=True,
-        server_default=text("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"),
     )
 
     user = relationship("User", backref="orders")
@@ -79,25 +68,31 @@ class Order(Base):
 
 class Menu(Base):
     __tablename__ = "menu"
-    menu_id = Column(Integer, primary_key=True)
-    restaurant_id = Column(Integer, ForeignKey("restaurant.restaurant_id"))
-    user_id = Column(Integer, ForeignKey("user.user_id"))
-    order_id = Column(Integer, ForeignKey("orders.order_id"))
-    item_name = Column(String(1024), nullable=False)
-    category = Column(String(1024), nullable=True)
-    description = Column(String(1024), nullable=False)
+    menu_id = Column(String, primary_key=True)
+    restaurant_id = Column(String, ForeignKey("restaurant.restaurant_id"))
+    food_name = Column(String(1024), nullable=False)
+    cuisine = Column(String(1024), nullable=True)
     amount = Column(Integer, nullable=False)
-    created_by = Column(Integer, nullable=True)
-    created_at = Column(
-        TIMESTAMP, nullable=False, server_default=text("CURRENT_TIMESTAMP")
-    )
-    updated_by = Column(Integer, nullable=True)
-    updated_at = Column(
-        TIMESTAMP,
-        nullable=True,
-        server_default=text("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"),
-    )
 
     restaurant = relationship("Restaurant", backref="menu")
-    user = relationship("User", backref="menu")
-    order = relationship("Order", backref="menu")
+
+
+class OrderItem(Base):
+    __tablename__ = "order_items"
+    order_items_id = Column(Integer, primary_key=True, autoincrement=True)
+    order_id = Column(String)
+    user_id = Column(String)
+    restaurant_id = Column(String)
+    menu_ids = Column(ARRAY(String))
+    food_names = Column(ARRAY(String))
+    amounts = Column(ARRAY(String))
+    quantities = Column(ARRAY(String))
+
+
+class DeliveryPartner(Base):
+    __tablename__ = "delivery_partners"
+
+    id = Column(String, primary_key=True)
+    order_id = Column(String)
+    contact_info = Column(String)
+    status = Column(Integer)

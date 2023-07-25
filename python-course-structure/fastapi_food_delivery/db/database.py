@@ -26,12 +26,7 @@ class Database:
                 print("Error connecting to DB : ", ex)
         return self.engine
 
-    @staticmethod
-    def get_db_session(engine):
-        try:
-            Session = sessionmaker(bind=engine)
-            session = Session()
-            return session
-        except Exception as ex:
-            print("Error getting DB session : ", ex)
-            return None
+    def get_db_session(self, bind=None):
+        Session = sessionmaker(bind=bind)
+        session = Session()
+        return session

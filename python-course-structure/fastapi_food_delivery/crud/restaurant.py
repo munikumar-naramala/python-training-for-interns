@@ -1,45 +1,25 @@
 from fastapi import APIRouter, HTTPException, Query
-from models.request import RestaurantRequest, RestaurantUpdateRequest
-from models.response import Response
+from schemas.request import RestaurantRequest, RestaurantUpdateRequest
+from schemas.response import response
 from models.models import Restaurant
 from db.database import Database
+from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy import and_, desc
 import uuid
 from pydantic import BaseModel
 from datetime import datetime, timedelta
 from jose import jwt
+from static.send_mail import send_email
 
 router = APIRouter(
     prefix="/restaurants",
     tags=["Restaurant"],
     responses={404: {"description": "Not found"}},
 )
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 database = Database()
 engine = database.get_db_connection()
-
-
-@router.post("/register_restaurant", response_description="Add a restaurant")
-async def add_restaurant(restaurant_req: RestaurantRequest):
-    new_restaurant = Restaurant()
-    new_restaurant.restaurant_id = str(uuid.uuid4())
-    new_restaurant.restaurant_name = restaurant_req.restaurant_name
-    new_restaurant.address = restaurant_req.address
-    new_restaurant.phone = restaurant_req.phone
-    new_restaurant.email = restaurant_req.email
-    new_restaurant.opening_hours = restaurant_req.opening_hours
-    new_restaurant.description = restaurant_req.description
-    new_restaurant.rating = restaurant_req.rating
-    new_restaurant.created_by = restaurant_req.created_by
-    session = database.get_db_session(engine)
-    session.add(new_restaurant)
-    session.flush()
-
-    session.refresh(new_restaurant, attribute_names=['restaurant_id'])
-    data = {"restaurant_id": new_restaurant.restaurant_id}
-    session.commit()
-    session.close()
-    return Response(data, 200, "Restaurant added successfully.", False)
 
 
 class Token(BaseModel):
@@ -61,6 +41,32 @@ def create_access_token(data: dict):
     return encoded_jwt
 
 
+@router.post("/register_restaurant", response_description="Add a restaurant")
+async def add_restaurant(restaurant_req: RestaurantRequest):
+    new_restaurant = Restaurant()
+    new_restaurant.restaurant_id = str(uuid.uuid4())
+    new_restaurant.restaurant_name = restaurant_req.restaurant_name
+    new_restaurant.address = restaurant_req.address
+    new_restaurant.phone = restaurant_req.phone
+    new_restaurant.email = restaurant_req.email
+    new_restaurant.opening_hours = restaurant_req.opening_hours
+    new_restaurant.description = restaurant_req.description
+    new_restaurant.rating = restaurant_req.rating
+    new_restaurant.created_by = restaurant_req.created_by
+    session = database.get_db_session(engine)
+    session.add(new_restaurant)
+    session.flush()
+
+    session.refresh(new_restaurant, attribute_names=['restaurant_id'])
+    data = {"restaurant_id": new_restaurant.restaurant_id}
+    session.commit()
+    subject = "Registration Successful"
+    message = f"Hello {new_restaurant.restaurant_name},\n\nYour have successfully registered your restaurant."
+    send_email(subject, message, new_restaurant.email)
+    session.close()
+    return response(data, 200, "Restaurant added successfully.", False)
+
+
 @router.post("/login")
 def login(email: str):
     session = database.get_db_session(engine)
@@ -79,11 +85,11 @@ def login(email: str):
     return {'token': token, 'login status: ': 'success'}
 
 
-@router.put("/update_restaurant/{restaurant_name}")
-async def update_restaurant(restaurant_update_req: RestaurantUpdateRequest, restaurant_name: str):
+@router.put("/update_restaurant/{restaurant_id}")
+async def update_restaurant(restaurant_update_req: RestaurantUpdateRequest, restaurant_id: str):
     session = database.get_db_session(engine)
     try:
-        is_menu_updated = session.query(Restaurant).filter(Restaurant.restaurant_name == restaurant_name).update({
+        is_menu_updated = session.query(Restaurant).filter(Restaurant.restaurant_id == restaurant_id).update({
             Restaurant.restaurant_name: restaurant_update_req.item_name,
             Restaurant.amount: restaurant_update_req.amount,
             Restaurant.description: restaurant_update_req.description,
@@ -98,14 +104,14 @@ async def update_restaurant(restaurant_update_req: RestaurantUpdateRequest, rest
         error = False
         if is_menu_updated == 1:
             data = session.query(Restaurant).filter(
-                Restaurant.restaurant_name == restaurant_name).one()
+                Restaurant.restaurant_id == restaurant_id).one()
 
         elif is_menu_updated == 0:
-            response_msg = "Restaurant not updated. No restaurant found with this name :" + \
-                           str(restaurant_name)
+            response_msg = "Restaurant not updated. No restaurant found with this id :" + \
+                           str(restaurant_id)
             error = True
             data = None
-        return Response(data, response_code, response_msg, error)
+        return response(data, response_code, response_msg, error)
     except Exception as ex:
         print("Error : ", ex)
 
@@ -136,19 +142,19 @@ def search_restaurant_location(query: str = Query(..., description="Search locat
     return {"results": results}
 
 
-@router.get("/{restaurant_name}")
-async def read_restaurant(restaurant_name: str):
+@router.get("/{restaurant_id}")
+async def read_restaurant(restaurant_id: str):
     session = database.get_db_session(engine)
     response_message = "Restaurant retrieved successfully"
     data = None
     try:
         data = session.query(Restaurant).filter(
-            and_(Restaurant.restaurant_name == restaurant_name)).one()
+            and_(Restaurant.restaurant_id == restaurant_id)).one()
     except Exception as ex:
         print("Error", ex)
         response_message = "Restaurant Not found"
     error = False
-    return Response(data, 200, response_message, error)
+    return response(data, 200, response_message, error)
 
 
 @router.get("/")
@@ -156,4 +162,4 @@ async def read_all_restaurants():
     session = database.get_db_session(engine)
     data = session.query(Restaurant).order_by(
         desc(Restaurant.rating)).all()
-    return Response(data, 200, "Restaurants retrieved successfully.", False)
+    return response(data, 200, "Restaurants retrieved successfully.", False)
